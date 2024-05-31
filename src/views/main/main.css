@@ -1,7 +1,65 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+	margin: 0;
+}
+
+.main {
+	background-image: url("../../assets/frame.webp"), url("../../assets/750x500_bg.webp");
+	background-repeat: no-repeat;
+	background-position: center, center;
+	background-color: rgba(0, 0, 0, 0);
+	height: 100vh;
+	overflow: hidden;
+	/* padding: 50px; */
+}
+.content {
+	padding: 50px;
+}
+
+#topbar {
+	width: 100%;
+	height: 37px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+}
+
+.controls {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	padding: 0 11px;
+}
+
+.draggable {
+	-webkit-app-region: drag;
+	flex-grow: 1;
+}
+
+.topbar-button {
+	height: 19px;
+	width: 19px;
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+#close-button {
+	background-image: url("../../assets/Buttons_Close_off.webp");
+}
+
+#close-button:hover {
+	background-image: url("../../assets/Buttons_Close_over.webp");
+}
+
+#minimize-button {
+	background-image: url("../../assets/Buttons_Minimize_off.webp");
+}
+
+#minimize-button:hover {
+	background-image: url("../../assets/Buttons_Minimize_over.webp");
 }

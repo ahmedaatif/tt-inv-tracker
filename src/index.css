@@ -1,0 +1,12 @@
+@font-face {
+	font-family: "mickey";
+	src: url("assets/fonts/Mickey.TTF");
+}
+@font-face {
+	font-family: "minnie";
+	src: url("assets/fonts/Minnie.TTF");
+}
+
+* {
+	font-family: "mickey", "minnie";
+}
