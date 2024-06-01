@@ -1,12 +1,5 @@
-@font-face {
-	font-family: "mickey";
-	src: url("assets/fonts/Mickey.TTF");
-}
-@font-face {
-	font-family: "minnie";
-	src: url("assets/fonts/Minnie.TTF");
-}
+@import url("assets/fonts/fonts.css");
 
 * {
-	font-family: "mickey", "minnie";
+	font-family: "minnie", Arial, Helvetica, sans-serif;
 }

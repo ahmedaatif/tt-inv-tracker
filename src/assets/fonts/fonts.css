@@ -1,0 +1,16 @@
+@font-face {
+	font-family: "mickey";
+	src: url("Mickey.TTF");
+}
+@font-face {
+	font-family: "minnie";
+	src: url("Minnie.TTF");
+}
+@font-face {
+	font-family: "impress-bt";
+	src: url("impress-bt.ttf");
+}
+@font-face {
+	font-family: "vt-portable-remington";
+	src: url("vtRemingtonPortable.ttf");
+}
