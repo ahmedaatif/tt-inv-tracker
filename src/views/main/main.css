@@ -6,6 +6,7 @@ body {
 	background-image: url("../../assets/frame.webp"), url("../../assets/750x500_bg.webp");
 	background-repeat: no-repeat;
 	background-position: center, center;
+	background-size: auto, 94%;
 	background-color: rgba(0, 0, 0, 0);
 	height: 100vh;
 	overflow: hidden;
