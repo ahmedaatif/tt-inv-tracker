@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld("controls", {
 	electron: () => process.versions.electron,
 	close: () => ipcRenderer.invoke("close"),
 	minimize: () => ipcRenderer.invoke("minimize"),
+	toggleOverlay: () => ipcRenderer.invoke("toggleOverlay"),
 	// we can also expose variables, not just functions
 });

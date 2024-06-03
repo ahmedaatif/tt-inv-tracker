@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const path = require("node:path");
 
 app.setName("Toontown Invasion Tracker");
@@ -9,6 +9,7 @@ if (require("electron-squirrel-startup")) {
 }
 
 let mainWindow = null;
+let overlayWindow = null;
 
 const createWindow = () => {
 	// Create the browser window.
@@ -46,6 +47,36 @@ app.whenReady().then(() => {
 
 	ipcMain.handle("close", () => {
 		app.quit();
+	});
+
+	ipcMain.handle("toggleOverlay", () => {
+		if (overlayWindow == null) {
+			const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
+			overlayWindow = new BrowserWindow({
+				width: 90,
+				height: 90,
+				transparent: true,
+				frame: false,
+				fullscreenable: false,
+				maximizable: false,
+				resizable: false,
+				alwaysOnTop: true,
+				title: "Overlay",
+				x: 150,
+				y: height - 70,
+				webPreferences: {
+					preload: path.join(__dirname, "views/overlay/preload.js"),
+				},
+			});
+
+			overlayWindow.loadFile(path.join(__dirname, "views/overlay/overlay.html"));
+		} else {
+			overlayWindow.close();
+			overlayWindow = null;
+		}
+
+		return !!overlayWindow;
 	});
 
 	createWindow();
