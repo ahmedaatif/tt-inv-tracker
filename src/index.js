@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("node:path");
 
+app.setName("Toontown Invasion Tracker");
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
 	app.quit();
@@ -18,6 +20,7 @@ const createWindow = () => {
 		fullscreenable: false,
 		maximizable: false,
 		resizable: false,
+		title: "Toontown Invasion Tracker",
 		// focusable: false,
 		webPreferences: {
 			preload: path.join(__dirname, "views/main/preload.js"),
