@@ -1,5 +1,19 @@
 @import url("assets/fonts/fonts.css");
 
 * {
-	font-family: "minnie", Arial, Helvetica, sans-serif;
+	font-family: "impress-bt", Arial, Helvetica, sans-serif;
+	margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "minnie";
+	color: white;
+	-webkit-text-stroke-width: 0.5px;
+	-webkit-text-stroke-color: black;
+	text-shadow: #00000050 0 3px 5px;
 }

@@ -11,6 +11,14 @@ body {
 	height: 100vh;
 	overflow: hidden;
 	/* padding: 50px; */
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+footer {
+	padding: 40px 50px;
 }
 .content {
 	padding: 50px;
@@ -63,4 +71,42 @@ body {
 
 #minimize-button:hover {
 	background-image: url("../../assets/Buttons_Minimize_over.webp");
+}
+
+button {
+	border-color: #f9d949;
+	border-radius: 10px;
+	border-width: 4px;
+	border-style: solid;
+	background: linear-gradient(180deg, rgba(250, 235, 116, 1) 0%, rgba(249, 217, 73, 1) 100%);
+
+	padding: 6px 12px;
+	font-family: "impress-bt";
+	font-size: 16px;
+	color: #5080d4;
+}
+
+button:hover {
+	border-color: #f6c654;
+	color: white;
+	background: linear-gradient(180deg, #ebaa3b 0%, #e18430 100%);
+}
+
+button:active {
+	border-color: #f19e4d;
+	color: white;
+	background: linear-gradient(180deg, #e18430 0%, #b46a26 100%);
+}
+
+.content-container {
+	backdrop-filter: blur(2px);
+	background-color: rgba(255, 255, 255, 0.4);
+	padding: 20px;
+	margin-top: 10px;
+	border-radius: 10px;
+}
+
+.content-container .content-title {
+	margin-top: -30px;
+	margin-bottom: 15px;
 }
