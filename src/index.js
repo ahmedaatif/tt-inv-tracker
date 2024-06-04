@@ -70,6 +70,11 @@ app.whenReady().then(() => {
 				},
 			});
 
+			if (app.isPackaged == false) {
+				// Open the DevTools.
+				overlayWindow.webContents.openDevTools();
+			}
+
 			overlayWindow.loadFile(path.join(__dirname, "views/overlay/overlay.html"));
 		} else {
 			overlayWindow.close();
