@@ -1,20 +1,19 @@
-export async function getToonPortrait(dna) {
-	const response = await fetch(`https://rendition.toontownrewritten.com/render/${dna}/portrait-surprise/128x128.webp`);
-	const portrait = await response.json();
-	console.log(portrait);
-	return portrait;
+async function getToonPortrait(dna, pose) {
+	return `https://rendition.toontownrewritten.com/render/${dna}/${pose}/128x128.webp`;
 }
 
-export async function getLocalData() {
+async function getLocalData(authorization) {
 	const response = await fetch(`http://localhost:1547/info.json`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
 			Host: "localhost:1547",
 			"User-Agent": "Toontown Invasion Tracker", // Gets ignored by chrome
-			Authorization: "sdf",
+			Authorization: authorization,
 		},
 	});
 	const localData = await response.json();
 	return localData;
 }
+
+module.exports = { getLocalData, getToonPortrait };

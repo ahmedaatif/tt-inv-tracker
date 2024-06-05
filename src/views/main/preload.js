@@ -11,3 +11,7 @@ contextBridge.exposeInMainWorld("controls", {
 	toggleOverlay: () => ipcRenderer.invoke("toggleOverlay"),
 	// we can also expose variables, not just functions
 });
+
+contextBridge.exposeInMainWorld("data", {
+	onLocalReceive: (callback) => ipcRenderer.on("local-data", (_event, value) => callback(value)),
+});

@@ -1,6 +1,56 @@
+body {
+	overflow: hidden;
+}
+
 .button {
 	height: 90px;
 	width: 90px;
 	border-radius: 100px;
 	background-color: gray;
+	overflow: hidden;
+	position: relative;
+}
+
+.base-size {
+	width: calc(100vh - 8px);
+	height: calc(100vh - 8px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+button {
+	border-color: #f9d949;
+	border-radius: 10px;
+	border-width: 4px;
+	border-style: solid;
+	background: linear-gradient(180deg, rgba(250, 235, 116, 1) 0%, rgba(249, 217, 73, 1) 100%);
+	padding: 0;
+	/* padding: 6px 12px; */
+	font-family: "impress-bt";
+	font-size: 16px;
+	color: #5080d4;
+}
+
+button:hover {
+	border-color: #f6c654;
+	color: white;
+	background: linear-gradient(180deg, #ebaa3b 0%, #e18430 100%);
+}
+
+button:active {
+	border-color: #f19e4d;
+	color: white;
+	background: linear-gradient(180deg, #e18430 0%, #b46a26 100%);
+}
+
+.fade {
+	position: absolute;
+	opacity: 0;
+	transition: opacity 1s ease-in-out; /* Adjust transition properties as needed */
+}
+
+.fade.show {
+	opacity: 1;
 }

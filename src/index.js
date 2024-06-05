@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const path = require("node:path");
+const api = require("./core/api.js");
+const { v4: uuidv4 } = require("uuid");
 
 app.setName("Toontown Invasion Tracker");
 
@@ -84,7 +86,27 @@ app.whenReady().then(() => {
 		return !!overlayWindow;
 	});
 
+	ipcMain.handle("obtainToonImage", async (event, returned) => {
+		const data = await api.getToonPortrait(returned[0], returned[1]);
+		return data;
+	});
+
 	createWindow();
+
+	const auth = uuidv4();
+
+	setInterval(async () => {
+		try {
+			const local = await api.getLocalData(auth);
+			mainWindow?.webContents?.send("local-data", local);
+			overlayWindow?.webContents?.send("local-data", local);
+		} catch (error) {
+			mainWindow?.webContents?.send("local-data", null);
+			overlayWindow?.webContents?.send("local-data", null);
+
+			console.error("Is the game turned on?");
+		}
+	}, 2000);
 
 	// On OS X it's common to re-create a window in the app when the
 	// dock icon is clicked and there are no other windows open.

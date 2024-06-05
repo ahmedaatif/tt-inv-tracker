@@ -1,5 +1,3 @@
-import { getLocalData } from "../../core/api.js";
-
 const minimizeFunc = async () => {
 	await window.controls.minimize();
 };
@@ -22,16 +20,12 @@ const toggleOverlay = async (event) => {
 };
 document.getElementById("toggle-overlay").addEventListener("click", toggleOverlay);
 
-setInterval(async () => {
-	try {
-		const local = await getLocalData();
+window.data.onLocalReceive((value) => {
+	if (!!value) {
 		document.getElementById(
 			"local-status"
-		).innerText = `Local is connected - ${local["toon"]["name"]} @ ${local["location"]["neighborhood"]}, ${local["location"]["district"]} `;
-		console.log(local);
-	} catch (error) {
+		).innerText = `Local is connected - ${value["toon"]["name"]} @ ${value["location"]["neighborhood"]}, ${value["location"]["district"]} `;
+	} else {
 		document.getElementById("local-status").innerText = "Local is not connected";
-
-		console.error("Is the game turned on?");
 	}
-}, 2000);
+});
