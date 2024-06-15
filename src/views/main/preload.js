@@ -14,4 +14,5 @@ contextBridge.exposeInMainWorld("controls", {
 
 contextBridge.exposeInMainWorld("data", {
 	onLocalReceive: (callback) => ipcRenderer.on("local-data", (_event, value) => callback(value)),
+	onInvasionsRecieve: (callback) => ipcRenderer.on("invasions", (_event, value) => callback(value)),
 });

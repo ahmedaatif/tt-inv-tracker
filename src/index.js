@@ -103,10 +103,16 @@ app.whenReady().then(() => {
 		} catch (error) {
 			mainWindow?.webContents?.send("local-data", null);
 			overlayWindow?.webContents?.send("local-data", null);
-
-			console.error("Is the game turned on?");
 		}
 	}, 2000);
+
+	setInterval(async () => {
+		try {
+			const invasions = await api.getInvasions();
+
+			mainWindow?.webContents?.send("invasions", invasions);
+		} catch (error) {}
+	}, 10000);
 
 	// On OS X it's common to re-create a window in the app when the
 	// dock icon is clicked and there are no other windows open.

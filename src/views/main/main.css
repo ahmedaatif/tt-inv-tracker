@@ -19,7 +19,6 @@ body {
 }
 
 ::-webkit-scrollbar {
-	width: 12px;
 	border-radius: 10px;
 
 	background-color: #f5f5f5;
@@ -45,7 +44,7 @@ body {
 
 .controls {
 	display: flex;
-	gap: 8px;
+	gap: 6px;
 	align-items: center;
 	padding: 0 11px;
 }
@@ -94,7 +93,10 @@ body {
 .content {
 	padding: 15px 50px;
 	height: 100vh;
-	overflow-y: auto;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
 /*
@@ -146,7 +148,6 @@ button:active {
 	backdrop-filter: blur(2px);
 	background-color: rgba(255, 255, 255, 0.4);
 	padding: 20px;
-	margin-top: 10px;
 	border-radius: 10px;
 }
 
@@ -155,14 +156,132 @@ button:active {
 	margin-bottom: 15px;
 }
 
-table {
-	width: 100%;
-}
-
 .img-table {
 	max-width: 48px;
 }
 
-tr {
-	height: 50px;
+table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.table-scroll-container table {
+	border: 0;
+}
+
+.table-scroll-container table tr {
+	display: flex;
+	height: 58px;
+
+	border-style: solid;
+	border-width: 6px;
+	border-radius: 16px;
+
+	transition: transform 0.1s;
+}
+
+.table-scroll-container table tr:hover {
+	transform: scale(1.01);
+}
+
+.table-scroll-container table tr td:nth-child(1) {
+	align-items: end;
+	flex: 0.5;
+}
+
+.table-scroll-container table tr:nth-child(odd) {
+	background: linear-gradient(180deg, #f6cae0 0%, #ed94c0 100%);
+	border-color: #ed94c0;
+}
+
+.table-scroll-container table tr:nth-child(even) {
+	border-color: #9db8e7;
+	background: linear-gradient(180deg, #bed0ef 0%, #9db8e7 100%);
+	border-color: #9db8e7;
+}
+
+.table-scroll-container table td {
+	display: flex;
+	flex: 1;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+.table-scroll-container table thead tr:after {
+	overflow-y: scroll;
+	visibility: hidden;
+	height: 0;
+}
+.table-scroll-container table thead th {
+	flex: 1;
+	display: block;
+}
+.table-scroll-container table tbody {
+	display: flex;
+	gap: 6px;
+	flex-direction: column;
+}
+
+thead {
+	border: #b0c8e7 8px solid;
+	display: block;
+	border-radius: 20px;
+	background-color: #9db8e7;
+	color: white;
+}
+
+.table-scroll-container {
+	height: 226px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 0 8px;
+}
+
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip:after {
+	content: "?";
+
+	position: absolute;
+	transform: translate(10px, -10px);
+	height: 10px;
+	width: 10px;
+	font-size: 12px;
+	line-height: 10px;
+
+	border-color: #f9d949;
+	border-radius: 100px;
+	border-width: 2px;
+	border-style: solid;
+	background: linear-gradient(180deg, rgba(250, 235, 116, 1) 0%, rgba(249, 217, 73, 1) 100%);
+	padding: 4px;
+	color: #5080d4;
+	font-family: "impress-bt";
+}
+
+/* Tooltip text */
+.tooltip .tooltip-text {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	font-size: 12px;
+
+	position: absolute;
+	z-index: 1;
+}
+
+.tooltip:hover .tooltip-text {
+	visibility: visible;
+	width: 100px;
+	top: 100%;
+	left: 50%;
+	margin-left: -50px;
 }

@@ -16,4 +16,17 @@ async function getLocalData(authorization) {
 	return localData;
 }
 
-module.exports = { getLocalData, getToonPortrait };
+async function getInvasions() {
+	const response = await fetch(`https://www.toontownrewritten.com/api/invasions`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			"User-Agent": "Toontown Invasion Tracker",
+			"Access-Control-Allow-Origin": "*",
+		},
+	});
+	const localData = await response.json();
+	return localData;
+}
+
+module.exports = { getLocalData, getToonPortrait, getInvasions };
