@@ -1,8 +1,8 @@
 {
   "name": "tt-inv-tracker",
-  "productName": "tt-inv-tracker",
+  "productName": "Toontown Invasion Tracker",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "An invasion tracker for Toontown Rewritten Client",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -25,6 +25,13 @@
   "author": {
     "name": "Ahmed A'atif",
     "email": "ahmedaatif1999@gmail.com"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "src/assets/icons/icon"
+      }
+    }
   },
   "license": "MIT",
   "dependencies": {
