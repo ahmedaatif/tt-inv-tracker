@@ -21,12 +21,12 @@ Currently tracking invasions of [Toontown Rewritten](https://toontownrewritten.c
 Soon
 
 ## Local Setup
-If you want to contribute or run this project locally, below are intstructions to help you set up this project
+If you want to contribute or run this project locally, below are intstructions to help you get started
 
-### Prequisites
+### Prerequisites
 1. [Node.js](https://nodejs.org/en/download/package-manager)
 
 ### Running locally
-1. Download the repository
+1. Download the repository and navigate into it
 2. Run `npm install` to install the dependencies required
 3. Run `npm run start` to run the project
