@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const path = require("node:path");
 const api = require("./core/api.js");
+const functions = require("./core/functions.js");
+
 const { v4: uuidv4 } = require("uuid");
 
 app.setName("Toontown Invasion Tracker");
@@ -42,7 +44,7 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
 	ipcMain.handle("minimize", () => {
 		mainWindow.minimize();
 	});
@@ -95,23 +97,16 @@ app.whenReady().then(() => {
 
 	const auth = uuidv4();
 
+	await functions.sendLocalDataToWindows(mainWindow, overlayWindow, auth);
+
 	setInterval(async () => {
-		try {
-			const local = await api.getLocalData(auth);
-			mainWindow?.webContents?.send("local-data", local);
-			overlayWindow?.webContents?.send("local-data", local);
-		} catch (error) {
-			mainWindow?.webContents?.send("local-data", null);
-			overlayWindow?.webContents?.send("local-data", null);
-		}
+		await functions.sendLocalDataToWindows(mainWindow, overlayWindow, auth);
 	}, 2000);
 
-	setInterval(async () => {
-		try {
-			const invasions = await api.getInvasions();
+	await functions.fetchInvasions(mainWindow);
 
-			mainWindow?.webContents?.send("invasions", invasions);
-		} catch (error) {}
+	setInterval(async () => {
+		await functions.fetchInvasions(mainWindow);
 	}, 10000);
 
 	// On OS X it's common to re-create a window in the app when the
