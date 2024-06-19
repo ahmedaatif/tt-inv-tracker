@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const path = require("node:path");
-const api = require("./core/api.js");
 const functions = require("./core/functions.js");
 
 const { v4: uuidv4 } = require("uuid");
@@ -88,25 +87,22 @@ app.whenReady().then(async () => {
 		return !!overlayWindow;
 	});
 
-	ipcMain.handle("obtainToonImage", async (event, returned) => {
-		const data = await api.getToonPortrait(returned[0], returned[1]);
-		return data;
-	});
+	ipcMain.handle("obtainToonImage", functions.fetchAndReturnToonPortrait);
 
 	createWindow();
 
 	const auth = uuidv4();
 
-	await functions.sendLocalDataToWindows(mainWindow, overlayWindow, auth);
+	functions.fetchLocalDataAndSendToWindows([mainWindow, overlayWindow], auth);
 
 	setInterval(async () => {
-		await functions.sendLocalDataToWindows(mainWindow, overlayWindow, auth);
+		functions.fetchLocalDataAndSendToWindows([mainWindow, overlayWindow], auth);
 	}, 2000);
 
-	await functions.fetchInvasions(mainWindow);
+	functions.fetchInvasionsAndSendToWindows([mainWindow]);
 
 	setInterval(async () => {
-		await functions.fetchInvasions(mainWindow);
+		functions.fetchInvasionsAndSendToWindows([mainWindow]);
 	}, 10000);
 
 	// On OS X it's common to re-create a window in the app when the

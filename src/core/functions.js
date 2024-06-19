@@ -1,21 +1,59 @@
 const api = require("./api.js");
 
-async function fetchInvasions(mainWindow) {
+/**
+ * Fetch invasions from API and send them to windows provided
+ * @param {BrowserWindow[]} windows Array of Windows to send data to
+ * @returns {Promise<boolean>} True or false if it's sent or not
+ */
+async function fetchInvasionsAndSendToWindows(windows) {
 	try {
 		const invasions = await api.getInvasions();
-		mainWindow?.webContents?.send("invasions", invasions);
-	} catch (error) {}
-}
 
-async function sendLocalDataToWindows(mainWindow, overlayWindow, auth) {
-	try {
-		const local = await api.getLocalData(auth);
-		mainWindow?.webContents?.send("local-data", local);
-		overlayWindow?.webContents?.send("local-data", local);
+		windows.forEach((window) => {
+			window?.webContents?.send("invasions", invasions);
+		});
+
+		return true;
 	} catch (error) {
-		mainWindow?.webContents?.send("local-data", null);
-		overlayWindow?.webContents?.send("local-data", null);
+		return false;
 	}
 }
 
-module.exports = { fetchInvasions, sendLocalDataToWindows };
+/**
+ * Fetch local data from API and send them to windows provided
+ * @param {BrowserWindow[]} windows Array of Windows to be sent local data to
+ * @param {string} auth UUID Identifier for session
+ * @returns {Promise<boolean>} True or false if it's sent or not
+ */
+async function fetchLocalDataAndSendToWindows(windows, auth) {
+	try {
+		const local = await api.getLocalData(auth);
+
+		windows.forEach((window) => {
+			window?.webContents?.send("local-data", local);
+		});
+
+		return true;
+	} catch (error) {
+		windows.forEach((window) => {
+			window?.webContents?.send("local-data", null);
+		});
+
+		return false;
+	}
+}
+
+/**
+ * Get toon portrait
+ *
+ * Used by ipcMain.handle
+ * @param {*} event
+ * @param {*} returned Array of values, Index 0 is DNA of Toon, Index 1 is image pose
+ * @returns
+ */
+async function fetchAndReturnToonPortrait(event, returned) {
+	const data = await api.getToonPortrait(returned[0], returned[1]);
+	return data;
+}
+
+module.exports = { fetchInvasionsAndSendToWindows, fetchLocalDataAndSendToWindows, fetchAndReturnToonPortrait };
