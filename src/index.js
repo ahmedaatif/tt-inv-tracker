@@ -12,6 +12,7 @@ if (require("electron-squirrel-startup")) {
 }
 
 let mainWindow = null;
+let optionsWindow = null;
 let overlayWindow = null;
 
 const createWindow = () => {
@@ -85,6 +86,33 @@ app.whenReady().then(async () => {
 		}
 
 		return !!overlayWindow;
+	});
+
+	ipcMain.handle("openOptions", () => {
+		if (optionsWindow == null) {
+			optionsWindow = new BrowserWindow({
+				width: 100,
+				height: 200,
+				transparent: false,
+				frame: true,
+				fullscreenable: false,
+				maximizable: false,
+				resizable: false,
+				title: "Options",
+				webPreferences: {
+					preload: path.join(__dirname, "views/options/preload.js"),
+				},
+			});
+
+			if (app.isPackaged == false) {
+				// Open the DevTools.
+				optionsWindow.webContents.openDevTools();
+			}
+
+			optionsWindow.loadFile(path.join(__dirname, "views/options/options.html"));
+		}
+
+		return !!optionsWindow;
 	});
 
 	ipcMain.handle("obtainToonImage", functions.fetchAndReturnToonPortrait);

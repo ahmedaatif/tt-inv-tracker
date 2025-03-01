@@ -20,6 +20,11 @@ const toggleOverlay = async (event) => {
 };
 document.getElementById("toggle-overlay").addEventListener("click", toggleOverlay);
 
+const openOptions = async (event) => {
+	await window.controls.openOptions();
+};
+document.getElementById("open-options").addEventListener("click", openOptions);
+
 window.data.onLocalReceive((value) => {
 	if (!!value) {
 		document.getElementById(
